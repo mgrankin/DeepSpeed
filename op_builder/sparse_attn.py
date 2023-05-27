@@ -75,8 +75,5 @@ class SparseAttnBuilder(OpBuilder):
             installed_triton = triton.__version__
             triton_mismatch = installed_triton != "1.0.0"
 
-        if triton_mismatch:
-            self.warning(f"using untested triton version ({installed_triton}), only 1.0.0 is known to be compatible")
-            return False
 
         return super().is_compatible(verbose) and torch_compatible and cuda_compatible
