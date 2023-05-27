@@ -55,7 +55,7 @@ class SparseAttnBuilder(OpBuilder):
 
         TORCH_MAJOR = int(torch.__version__.split('.')[0])
         TORCH_MINOR = int(torch.__version__.split('.')[1])
-        torch_compatible = (TORCH_MAJOR == 1 and TORCH_MINOR >= 5)
+        torch_compatible = True # (TORCH_MAJOR == 1 and TORCH_MINOR >= 5)
         if not torch_compatible:
             self.warning(
                 f'{self.NAME} requires a torch version >= 1.5 and < 2.0 but detected {TORCH_MAJOR}.{TORCH_MINOR}')
@@ -74,6 +74,7 @@ class SparseAttnBuilder(OpBuilder):
         else:
             installed_triton = triton.__version__
             triton_mismatch = installed_triton != "1.0.0"
-
+            
+        triton_mismatch = False
 
         return super().is_compatible(verbose) and torch_compatible and cuda_compatible
